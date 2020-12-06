@@ -45,6 +45,6 @@
   ],
       "theme_color": "#52b2c1",
       "background_color": "#01579b",
-      "start_url": "https://protected-basin-21646.herokuapp.com/",
+      "start_url": "https://shielded-castle-29266.herokuapp.com/",
       "display": "standalone"
 }
