@@ -35,7 +35,7 @@
     "short_name": "BudTrack",
     "orientation": "portrait",
     "display": "standalone",
-    "start_url": "/index.html",
+    "start_url": "https://shielded-castle-29266.herokuapp.com/",
     "description": "An app that allows you to track your budget activity.",
     "background_color": "#ffffff",
     "theme_color": "#317EFB"
