@@ -2,6 +2,7 @@ const APP_PREFIX = 'BudgetTracker-';
 const VERSION = 'version_01';
 const CACHE_NAME = APP_PREFIX + VERSION;
 const DATA_CACHE_NAME = 'data-cache-' + VERSION;
+
 const FILES_TO_CACHE = [
     "./index.html",
     "./js/idb.js",
@@ -16,6 +17,7 @@ const FILES_TO_CACHE = [
     "./icons/icon-384x384.png",
     "./icons/icon-512x512.png",
 ];
+
 self.addEventListener('install', function (e) {
     e.waitUntil(
         caches.open(CACHE_NAME).then(function (cache) {
@@ -24,6 +26,7 @@ self.addEventListener('install', function (e) {
         })
     )
 });
+
 self.addEventListener('activate', function (e) {
     e.waitUntil(
         caches.keys().then(function (keyList) {
@@ -40,8 +43,9 @@ self.addEventListener('activate', function (e) {
                 })
             );
         })
-    );
+    )
 });
+
 self.addEventListener("fetch", function (e) {
     if (e.request.url.includes("/api/")) {
         e.respondWith(
@@ -61,4 +65,4 @@ self.addEventListener("fetch", function (e) {
         );
         return;
     }
-})
+});
