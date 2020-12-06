@@ -5,11 +5,7 @@ const CACHE_NAME = APP_PREFIX + VERSION;
 // LIST OF FILES TO BE CACHED //
 const FILES_TO_CACHE = [
     "./index.html",
-    "./css/styles.css",
-    // "./dist/app.bundle.js",
-    // "./dist/events.bundle.js",
-    // "./dist/tickets.bundle.js",
-    // "./dist/schedule.bundle.js"
+    "./css/styles.css"
 ];
 
 self.addEventListener('install', function (e) {
