@@ -33,7 +33,6 @@
     ],
     "name": "Budget Tracker",
     "short_name": "BudTrack",
-    "orientation": "portrait",
     "display": "standalone",
     "start_url": "https://shielded-castle-29266.herokuapp.com/",
     "description": "An app that allows you to track your budget activity.",

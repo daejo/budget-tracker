@@ -1,6 +1,7 @@
 const APP_PREFIX = 'BudgetTracker-';     
 const VERSION = 'version_01';
 const CACHE_NAME = APP_PREFIX + VERSION;
+const DATA_CACHE_NAME = 'data-cache-' + VERSION;
 
 // LIST OF FILES TO BE CACHED //
 const FILES_TO_CACHE = [
@@ -44,3 +45,24 @@ self.addEventListener('fetch', function (e) {
       })
     )
   });
+
+  self.addEventListener("fetch", function (e) {
+    if (e.request.url.includes("/api/")) {
+        e.respondWith(
+            caches.open(DATA_CACHE_NAME).then(dataCache => {
+                return fetch(e.request)
+                    .then(response => {
+                        if (response.status === 200) {
+                            dataCache.put(e.request.url, response.clone());
+                        }
+                        return response;
+                    })
+                    .catch(err => {
+                        return cache.match(e.request);
+                    });
+            })
+            .catch(err => console.log(err))
+        );
+        return;
+    }
+})
