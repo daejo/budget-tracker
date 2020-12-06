@@ -1,13 +1,13 @@
 // create variable to hold db connection
 let db;
-// establish a connection to IndexedDB database called 'budget' and set it to version 1
-const request = indexedDB.open('budget', 1);
+// establish a connection to IndexedDB database called 'transaction' and set it to version 1
+const request = indexedDB.open('transaction', 1);
 
 request.onupgradeneeded = function(event) {
     // save a reference to the database
     const db = event.target.result;
-    // create an object store (table) called 'new_budget',
-    db.createObjectStore('new_budget', { autoIncrement: true });
+    // create an object store (table) called 'new_transaction',
+    db.createObjectStore('new_transaction', { autoIncrement: true });
 };
 
 // upon a successful 
@@ -15,10 +15,10 @@ request.onsuccess = function(event) {
     // when db is successfully created with its object store (from onupgradedneeded event above) or simply established a connection, save reference to db in global variable
     db = event.target.result;
   
-    // check if app is online, if yes run uploadBudget() function to send all local db data to api
+    // check if app is online, if yes run uploadtransaction() function to send all local db data to api
     if (navigator.onLine) {
       // we haven't created this yet, but we will soon, so let's comment it out for now
-      uploadBudget();
+      uploadTransaction();
     }
   };
   
@@ -27,27 +27,27 @@ request.onsuccess = function(event) {
     console.log(event.target.errorCode);
   };
 
-  // This function will be executed if we attempt to submit a new budget and there's no internet connection
+  // This function will be executed if we attempt to submit a new transaction and there's no internet connection
 function saveRecord(record) {
     // open a new transaction with the database with read and write permissions 
-    const transaction = db.transaction(['new_budget'], 'readwrite');
+    const transaction = db.transaction(['new_transaction'], 'readwrite');
   
-    // access the object store for `new_budget`
-    const budgetObjectStore = transaction.objectStore('new_budget');
+    // access the object store for `new_transaction`
+    const transactionObjectStore = transaction.objectStore('new_transaction');
   
     // add record to your store with add method
-    budgetObjectStore.add(record);
+    transactionObjectStore.add(record);
 }
 
-function uploadBudget() {
+function uploadTransaction() {
   // open a transaction on your db
-  const transaction = db.transaction(['new_budget'], 'readwrite');
+  const transaction = db.transaction(['new_transaction'], 'readwrite');
 
   // access your object store
-  const budgetObjectStore = transaction.objectStore('new_budget');
+  const transactionObjectStore = transaction.objectStore('new_transaction');
 
   // get all records from store and set to a variable
-  const getAll = budgetObjectStore.getAll();
+  const getAll = transactionObjectStore.getAll();
 
   // upon a successful .getAll() execution, run this function
   getAll.onsuccess = function() {
@@ -67,13 +67,13 @@ function uploadBudget() {
             throw new Error(serverResponse);
           }
           // open one more transaction
-          const transaction = db.transaction(['new_budget'], 'readwrite');
-          // access the new_budget object store
-          const budgetObjectStore = transaction.objectStore('new_budget');
+          const transaction = db.transaction(['new_transaction'], 'readwrite');
+          // access the new_transaction object store
+          const transactionObjectStore = transaction.objectStore('new_transaction');
           // clear all items in your store
-          budgetObjectStore.clear();
+          transactionObjectStore.clear();
 
-          alert('All saved budget has been submitted!');
+          alert('All saved transaction has been submitted!');
         })
         .catch(err => {
           console.log(err);
@@ -83,4 +83,4 @@ function uploadBudget() {
 }
 
 // listen for app coming back online
-window.addEventListener('online', uploadBudget);
+window.addEventListener('online', uploadTransaction);
